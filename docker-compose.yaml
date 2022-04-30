@@ -9,3 +9,15 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
+  vscode:
+    container_name: vscode
+    image: codercom/code-server
+    volumes:
+      # Set <project dir> to the directory you want to open in VS Code.
+      - /PATH_TO_YOUR_CONFIG:/config
+      # <vs code config> should point to a local dir where vs code stores its data.
+      - /PATH_TO_YOUR_CONFIG:/home/coder/.local/share/code-server
+    ports:
+      - "8443:8080"
+    command: code-server --auth none --disable-telemetry /config
+    restart: unless-stopped
